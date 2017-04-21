@@ -55,5 +55,11 @@ svymean(~api00, emergy_high)
 
 ```
 Chapter 3
+```{r}
+data(api)
+library(survey)
+clus2_design = svydesign(id = ~dnum+snum, fpc = ~ fpc1+fpc2, data = apiclus2)
+svymean(~enroll, clus2_design)
+```
 
 
