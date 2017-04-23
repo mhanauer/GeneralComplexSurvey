@@ -60,6 +60,23 @@ data(api)
 library(survey)
 clus2_design = svydesign(id = ~dnum+snum, fpc = ~ fpc1+fpc2, data = apiclus2)
 svymean(~enroll, clus2_design)
+
+install.packages("RSQLite")
+library(RSQLite)
+
+# Proportion of students who took the api test
+svyratio(~api.stu, ~enroll, strat_design)
+apisrs$api.stu
+
+# Predict the proportion 
+r = svyratio(~api.stu, ~enroll, strat_design)
+predict(r, total = 3811472)
+
+# Regression for survey with weights
+lm1 = svyglm(enroll ~ api.stu + api99, clus2_design)
+summary(lm1)
+apiclus2$api.stu
+
 ```
 
 
